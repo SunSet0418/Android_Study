@@ -1,11 +1,13 @@
 package com.example.sunset.retrofit;
 
+import android.icu.text.UnicodeSetSpanner;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     public void login(View V){
         EditText getid = (EditText)findViewById(R.id.id);
         EditText getpassword = (EditText)findViewById(R.id.password);
-        TextView view = (TextView)findViewById(R.id.response);
+        final TextView view = (TextView)findViewById(R.id.response);
 
         String id = getid.getText().toString();
         String password = getpassword.getText().toString();
@@ -37,17 +39,22 @@ public class LoginActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         final RetrofitInter apiRequest = retrofit.create(RetrofitInter.class);
+
         apiRequest.login(id, password).enqueue(new Callback<User>() {
+
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 Log.e("Response Username",response.body().getusername());
                 Log.e("Response ID",response.body().getid());
                 Log.e("Response Password",response.body().getpassword());
+                view.setText("Username : "+response.body().getusername()+"\n"+"ID : "+response.body().getid()+"\n"+"Password : "+response.body().getpassword());
+                Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Log.e("Response ","Fail");
+                Toast.makeText(LoginActivity.this, "Login Fail", Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -1,5 +1,6 @@
 package com.example.sunset.retrofit;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -12,7 +13,7 @@ public interface RetrofitInter {
 
     @FormUrlEncoded
     @POST("/login")
-    Call<User> login(@Field("id") String id, @Field("password") String password);
+    Call<ResponseBody> login(@Field("id") String id, @Field("password") String password);
 
     @FormUrlEncoded
     @POST("/register")

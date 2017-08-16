@@ -9,6 +9,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -16,6 +24,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
+    Gson gson = new Gson();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,16 +32,16 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
     }
 
-    public void login(View V){
-        EditText getid = (EditText)findViewById(R.id.id);
-        EditText getpassword = (EditText)findViewById(R.id.password);
-        final TextView view = (TextView)findViewById(R.id.response);
+    public void login(View V) {
+        EditText getid = (EditText) findViewById(R.id.id);
+        EditText getpassword = (EditText) findViewById(R.id.password);
+        final TextView view = (TextView) findViewById(R.id.response);
 
         String id = getid.getText().toString();
         String password = getpassword.getText().toString();
 
-        Log.e("ID ",id);
-        Log.e("Password ",password);
+        Log.e("ID ", id);
+        Log.e("Password ", password);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(RetrofitInter.BaseUrl)
@@ -40,22 +49,47 @@ public class LoginActivity extends AppCompatActivity {
                 .build();
         final RetrofitInter apiRequest = retrofit.create(RetrofitInter.class);
 
-        apiRequest.login(id, password).enqueue(new Callback<User>() {
+        apiRequest.login(id, password).enqueue(new Callback<ResponseBody>() {
 
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                Log.e("Response Username",response.body().getusername());
-                Log.e("Response ID",response.body().getid());
-                Log.e("Response Password",response.body().getpassword());
-                view.setText("Username : "+response.body().getusername()+"\n"+"ID : "+response.body().getid()+"\n"+"Password : "+response.body().getpassword());
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
+                try {
+                    JSONObject json = null;
+                    try {
+                        json = new JSONObject(response.body().string());
+                        Log.e("username ", json.getString("username"));
+                        Log.e("ID ", json.getString("id"));
+                        Log.e("Password ", json.getString("password"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    String s = gson.toJson(json);
+                    view.setText(s);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Log.e("Response ","Fail");
-                Toast.makeText(LoginActivity.this, "Login Fail", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "Server Connect Error", Toast.LENGTH_SHORT).show();
             }
+
+//            @Override
+//            public void onResponse(Call<User> call, Response<User> response) {
+//                Log.e("Response Username",response.body().getusername());
+//                Log.e("Response ID",response.body().getid());
+//                Log.e("Response Password",response.body().getpassword());
+//                view.setText("Username : "+response.body().getusername()+"\n"+"ID : "+response.body().getid()+"\n"+"Password : "+response.body().getpassword());
+//                Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<User> call, Throwable t) {
+//                Log.e("Response ","Fail");
+//                Toast.makeText(LoginActivity.this, "Login Fail", Toast.LENGTH_SHORT).show();
+//            }
         });
 
     }

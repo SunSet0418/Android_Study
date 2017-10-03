@@ -15,7 +15,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show()
                 try {
                     JSONObject json = null;
                     try {

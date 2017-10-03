@@ -2,11 +2,11 @@ package com.example.sunset.calculator;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,92 +14,32 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        Button one = (Button)findViewById(R.id.one);
+        Button two = (Button)findViewById(R.id.two);
+        Button three = (Button)findViewById(R.id.three);
+        Button four = (Button)findViewById(R.id.four);
+        Button five = (Button)findViewById(R.id.five);
+        Button six = (Button)findViewById(R.id.six);
+        Button seven = (Button)findViewById(R.id.seven);
+        Button eight = (Button)findViewById(R.id.eight);
+        Button nine = (Button)findViewById(R.id.nine);
+        Button zero = (Button)findViewById(R.id.zero);
+        Button clr = (Button)findViewById(R.id.clr);
+        Button gop = (Button)findViewById(R.id.gop);
+        Button na = (Button)findViewById(R.id.na);
+        Button hip = (Button)findViewById(R.id.hip);
+        TextView value = (TextView)findViewById(R.id.value);
+        TextView result = (TextView)findViewById(R.id.result);
+
     }
 
-    public void plus(View V){
-        Log.e("PLUS"," ACCESS");
-        Toast.makeText(this, "더하기", Toast.LENGTH_SHORT).show();
+    public void one(View V){
 
-        EditText firstdata = (EditText)findViewById(R.id.firstdata);
-        EditText seconddata = (EditText)findViewById(R.id.seconddata);
-        TextView resultdata = (TextView)findViewById(R.id.result);
-
-        Log.e("FirstData ",firstdata.getText().toString());
-        Log.e("SecondData ",seconddata.getText().toString());
-
-        int first = Integer.parseInt(firstdata.getText().toString());
-        int second = Integer.parseInt(seconddata.getText().toString());
-
-        String result = Integer.toString(first+second);
-
-        Log.e("Result ",Integer.toString(first+second));
-
-        resultdata.setText(result);
     }
 
-    public void minus(View V){
-        Log.e("MINUS"," ACCESS");
-        Toast.makeText(this, "빼기", Toast.LENGTH_SHORT).show();
 
-        EditText firstdata = (EditText)findViewById(R.id.firstdata);
-        EditText seconddata = (EditText)findViewById(R.id.seconddata);
-        TextView resultdata = (TextView)findViewById(R.id.result);
 
-        Log.e("FirstData ",firstdata.getText().toString());
-        Log.e("SecondData ",seconddata.getText().toString());
-
-        int first = Integer.parseInt(firstdata.getText().toString());
-        int second = Integer.parseInt(seconddata.getText().toString());
-
-        String result = Integer.toString(first-second);
-
-        Log.e("Result ",Integer.toString(first-second));
-
-        resultdata.setText(result);
-    }
-
-    public void gop(View V){
-        Log.e("GOP"," ACCESS");
-
-        Toast.makeText(this, "곱하기", Toast.LENGTH_SHORT).show();
-
-        EditText firstdata = (EditText)findViewById(R.id.firstdata);
-        EditText seconddata = (EditText)findViewById(R.id.seconddata);
-        TextView resultdata = (TextView)findViewById(R.id.result);
-
-        Log.e("FirstData ",firstdata.getText().toString());
-        Log.e("SecondData ",seconddata.getText().toString());
-
-        int first = Integer.parseInt(firstdata.getText().toString());
-        int second = Integer.parseInt(seconddata.getText().toString());
-
-        String result = Integer.toString(first*second);
-
-        Log.e("Result ",Integer.toString(first*second));
-
-        resultdata.setText(result);
-    }
-
-    public void na(View V){
-        Log.e("NA"," ACCESS");
-
-        Toast.makeText(this, "나누기", Toast.LENGTH_SHORT).show();
-
-        EditText firstdata = (EditText)findViewById(R.id.firstdata);
-        EditText seconddata = (EditText)findViewById(R.id.seconddata);
-        TextView resultdata = (TextView)findViewById(R.id.result);
-
-        Log.e("FirstData ",firstdata.getText().toString());
-        Log.e("SecondData ",seconddata.getText().toString());
-
-        int first = Integer.parseInt(firstdata.getText().toString());
-        int second = Integer.parseInt(seconddata.getText().toString());
-
-        String result = Integer.toString(first/second);
-
-        Log.e("Result ",Integer.toString(first/second));
-
-        resultdata.setText(result);
-    }
 
 }
